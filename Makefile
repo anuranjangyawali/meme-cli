@@ -1,4 +1,4 @@
-SRC=meme-cli
+SRC=meme-cli.sh
 
 install: 
 	@echo "Installing script..."
