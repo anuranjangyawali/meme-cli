@@ -1,15 +1,18 @@
+# Copyright (c) 2026 Anuranjan Gyawali
+# Licensed under the MIT License
+
 #!/bin/sh
 
 #set -x # for debugging information
 
-json_file=$HOME/.cache/memes.json
-cred_file=$HOME/.config/cred.json
+response_file=./response.json
+cred_file=./example-cred.json
 
 username=$(jq -r '.username' "$cred_file")
 password=$(jq -r '.password' "$cred_file")
 
-# create the $json_file if it doesn't exist
-[ ! -f "$json_file" ] && curl -s 'https://api.imgflip.com/get_memes' > "$json_file"
+# create the $response_file if it doesn't exist
+[ ! -f "$response_file" ] && curl -s 'https://api.imgflip.com/get_memes' > "$response_file"
 
 usage() {
 	echo "Usage: meme-cli [OPTION]"
@@ -30,7 +33,7 @@ do
 			shift
 			;;
 		--list|-l)
-			jq -r '.data.memes[].name' $json_file
+			jq -r '.data.memes[].name' $response_file
 			shift
 			;;
 		--output|-o)
@@ -49,12 +52,12 @@ done
 
 [ -z "$outputfile" ] &&  exit 1
 
-meme=$(jq -r '.data.memes[].name' "$json_file" | fzf) # fzf to fuzzy search/select the meme
+meme=$(jq -r '.data.memes[].name' "$response_file" | fzf) # fzf to fuzzy search/select the meme
 [ -z "$meme" ] && exit 0
 
 # query out the meme id & number of text boxes
-meme_id=$(jq  --arg nameofDememe "$meme" -r '.data.memes[] | select(.name == $nameofDememe) | .id' "$json_file") 
-text_boxes=$(jq --arg nameofDememe "$meme" -r '.data.memes[] | select(.name == $nameofDememe) | .box_count' "$json_file")
+meme_id=$(jq  --arg nameofDememe "$meme" -r '.data.memes[] | select(.name == $nameofDememe) | .id' "$response_file") 
+text_boxes=$(jq --arg nameofDememe "$meme" -r '.data.memes[] | select(.name == $nameofDememe) | .box_count' "$response_file")
 
 # produces '&' seperated key-value pairs. url encoded data of data to be POSTed
 

@@ -1,14 +1,12 @@
 SRC=meme-cli
-CONFIG=cred.json
 
 install: 
-	@echo "You have to run this command as root"
-	sudo cp ${SRC} /usr/bin/
-	@echo "Writing config file"
-	cp example-cred.json ${XDG_CONFIG_HOME}/${CONFIG}
+	@echo "Installing script..."
+	install -m 755 ./${SRC} /usr/local/bin/${SRC}
 
 uninstall:
-	@echo "You have to run this command as root"
-	sudo rm /usr/bin/${SRC}
-	@echo "Cleaning"
-	rm ${XDG_CONFIG_HOME}/${CONFIG}
+	@echo "Uninstalling script..."
+	rm -f /usr/local/bin/${SRC}
+clean:
+	@echo "Removing .json response and .png files"
+	rm -f response.json
