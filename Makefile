@@ -8,5 +8,5 @@ uninstall:
 	@echo "Uninstalling script..."
 	rm -f /usr/local/bin/${SRC}
 clean:
-	@echo "Removing .json response and .png files"
+	@echo "Removing .json response, and .png files"
 	rm -f response.json
