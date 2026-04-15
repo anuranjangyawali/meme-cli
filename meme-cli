@@ -3,7 +3,7 @@
 #set -x # for debugging information
 
 json_file=$HOME/.cache/memes.json
-cred_file=$HOME/.config/imgflip.json
+cred_file=$HOME/.config/cred.json
 
 username=$(jq -r '.username' "$cred_file")
 password=$(jq -r '.password' "$cred_file")
