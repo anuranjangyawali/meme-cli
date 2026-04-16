@@ -38,6 +38,7 @@ do
 			;;
 		--output|-o)
 			outputfile=$2
+			[ -z "$2" ] && usage && exit 0
 			shift 2
 			;;
 		*) 
