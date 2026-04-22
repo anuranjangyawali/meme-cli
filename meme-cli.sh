@@ -1,6 +1,3 @@
-# Copyright (c) 2026 Anuranjan Gyawali
-# Licensed under the MIT License
-
 #!/bin/sh
 
 #set -x # for debugging information
